@@ -65,12 +65,129 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 ```
 
-### Voters CRUD
+#### Mendapatkan Detail Paslon
 
+**Request:**
+
+- Metode: GET
+- Endpoint: `http://localhost:7000/paslons/1`
+
+**Response:**
+
+```json
+{
+    "id": 1,
+    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
+    "name": "name 1",
+    "visi": "visi 1",
+    "parties": [
+        {
+            "id": 1,
+            "name": "partai 1"
+        }
+    ]
+}
+```
+
+#### Menambahkan Data Paslon
+
+**Request:**
+
+- Metode: POST
+- Endpoint: `http://localhost:7000/paslons`
+
+**Contoh Request:**
+
+image dari file, yang nantinya saat tersimpan di database adalah url dari image yang disimpan di cloudinary
+
+```json
+{
+    "name": "data baru",
+    "visi": "visi baru",
+    "parties": [2]
+}
+```
+
+**Response:**
+
+```json
+{
+    "id": 4,
+    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
+    "name": "name baru",
+    "visi": "visi baru",
+    "parties": [
+        {
+            "id": 1,
+            "name": "partai 1"
+        }
+    ]
+}
+```
+
+
+#### Mengubah Data Paslon
+
+**Request:**
+
+- Metode: PATCH
+- Endpoint: `http://localhost:7000/paslons/2`
+
+
+**Contoh Request:**
+
+```json
+{
+    "name": "updated name baru"
+}
+```
+
+**Response:**
+
+```json
+{
+    "id": 2,
+    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
+    "name": "updated name baru",
+    "visi": "visi 2",
+    "parties": [
+        {
+            "id": 2,
+            "name": "partai 2"
+        }
+    ]
+}
+```
+
+#### Menghapus Data Paslon
+
+**Request:**
+
+- Metode: DELETE
+- Endpoint: `http://localhost:7000/paslons/2`
+
+**Response:**
+
+```json
+{
+    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
+    "name": "updated name baru",
+    "visi": "visi 2",
+    "parties": [
+        {
+            "id": 2,
+            "name": "partai 2"
+        }
+    ]
+}
+```
+
+### Voters CRUD
+Comming soon
 ...
 
 ### Parties CRUD
-
+Comming soon
 ...
 
 ## Cara Menjalankan Proyek
