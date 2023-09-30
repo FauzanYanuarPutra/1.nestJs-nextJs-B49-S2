@@ -27,8 +27,10 @@ export class PaslonsController {
   }
 
   @Patch('/:id')
+  @UseInterceptors(FileInterceptor('image'))
   async update(@Param('id') id: string, @Body() body: UpdatePaslonDto, @UploadedFile() image: Express.Multer.File) {
     const data = await this.paslonService.update(id, body, image)
+    console.log(image)
     return {message: "updated success", data};
   }
 

@@ -14,3 +14,4 @@ export class VoterSchema {
   @JoinColumn({ name: 'paslon_id' })
   paslon: PaslonSchema; 
 }
+

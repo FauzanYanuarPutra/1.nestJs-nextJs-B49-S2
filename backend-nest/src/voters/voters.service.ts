@@ -68,4 +68,18 @@ export class VotersService {
   //   return voter
   // }
 
+
+  // async totalVoter(id: string) {
+  //   const numId = Number(id)
+  //   if (isNaN(numId)) throw new BadRequestException('ID must be a number');
+
+  //   const voter = await this.voteRepository.find({
+  //     where: { id: numId },
+  //   })
+
+
+  //   const total = voter.length
+  //   return total
+  // }
+
 }

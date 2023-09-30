@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PartysController } from './partys.controller';
 import { PartysService } from './partys.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { PartySchema } from './party.entity';
+import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PartySchema])],
+  imports: [SharedModule],
   controllers: [PartysController],
   providers: [PartysService]
 })

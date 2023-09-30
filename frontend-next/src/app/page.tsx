@@ -23,7 +23,7 @@ export default function Home() {
         <div>
           {loading && (
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-              {Array.from({ length: 6 }).map((_, index) => (
+              {Array.from({ length: 3 }).map((_, index) => (
                   <div key={index} className='bg-white shadow-xl rounded-lg overflow-hidden'>
                     <div className='w-[100%] h-[200px] bg-[#8b8b8ba1] animate-pulse '></div>
                     <div className='px-3 py-4 h-[150px] bg-gray-300 animate-pulse flex flex-col justify-between'>
@@ -40,8 +40,8 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            )}
-            <motion.div
+          )}
+          <motion.div
               initial={{ opacity: 0 }}
               animate={{  opacity: 1 }}
               transition={{ duration: 1 }}
@@ -59,8 +59,8 @@ export default function Home() {
                   />
                   <div className='px-3 py-4 h-[150px] flex flex-col justify-between'>
                     <div>
-                      <h1 className='text-lg font-bold'>{paslon.name}</h1>
-                      <p className='text-sm '>{paslon.visi}</p>
+                      <h1 className='text-lg font-bold line-clamp-1 break-words'>{paslon.name}</h1>
+                      <p className='text-sm line-clamp-1 break-words'>{paslon.visi}</p>
                     </div>
                     <ul className='list-disc ml-4 mt-3 font-medium'>
                       {paslon.parties && paslon.parties.map((party: any) => (
@@ -74,7 +74,14 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-            </motion.div>
+          </motion.div>
+          <div className='mt-10'>
+            <div className='flex gap-2 h-[150px]'>
+              <div className='w-[200px] h-[150px] rounded-lg bg-white shadow-xl'></div>
+              <div className='w-[200px] h-[150px] rounded-lg bg-white shadow-xl'></div>
+              <div className='w-[200px] h-[150px] rounded-lg bg-white shadow-xl'></div>
+            </div>
+          </div>
         </div>
       </div>
     </>

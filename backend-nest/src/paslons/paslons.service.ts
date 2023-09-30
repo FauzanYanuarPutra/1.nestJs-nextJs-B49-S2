@@ -26,6 +26,7 @@ export class PaslonsService {
       relations: ['parties'],
     });
 
+
     if (!paslon) {
       throw new NotFoundException('Paslon not found');
     }
@@ -43,7 +44,7 @@ export class PaslonsService {
   }
 
   async find() {
-    return this.paslonsRepository.find({relations: ['parties'],});
+    return this.paslonsRepository.find({ relations: ['parties'] });
   }
 
   async create(body: CreatePaslonDto, image: Express.Multer.File) {
@@ -70,10 +71,14 @@ export class PaslonsService {
     if(body.parties) {
       paslon.parties = await this.addOrRemoveParties(paslon.id, body.parties);
     }
+
     if (image) {
-      const result = await this.uploadImageToCloudinary(image)
+      const public_id = this.takePublicID(paslon.image)
+      const result = await this.updateImage(public_id, image)
+      console.log(result)
       paslon.image = result.url
     } 
+
     await this.paslonsRepository.save(paslon);
     return paslon;
   }
@@ -81,6 +86,8 @@ export class PaslonsService {
   async delete(id: string) {
     const paslon = await this.findOneById(id);
     paslon.parties = await this.addOrRemoveParties(paslon.id, []);
+    const public_id = this.takePublicID(paslon.image)
+    await this.cloudinary.deleteImage(public_id)
     return await this.paslonsRepository.remove(paslon);
   }
 
@@ -114,4 +121,21 @@ export class PaslonsService {
     });
   }
 
+  async updateImage(publicId: string, file: Express.Multer.File) {
+    return await this.cloudinary.updateImage(publicId, file).catch(() => {
+      throw new BadRequestException('Error updating image');
+    });
+  }
+
+  takePublicID(imageUrl: string) {
+    const parts = imageUrl.split('/');
+    const publicIdWithExtension = parts[parts.length - 1]; 
+    const publicId = publicIdWithExtension.split('.')[0]; 
+    
+    return publicId
+  }
+
 }
+
+
+
