@@ -112,16 +112,19 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 
 ```json
 {
+  "message": "created success",
+  "data": {
     "id": 4,
     "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
     "name": "name baru",
     "visi": "visi baru",
     "parties": [
-        {
-            "id": 1,
-            "name": "partai 1"
-        }
+      {
+        "id": 1,
+        "name": "partai 1"
+      }
     ]
+  }
 }
 ```
 
@@ -146,16 +149,19 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 
 ```json
 {
-    "id": 2,
-    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
-    "name": "updated name baru",
-    "visi": "visi 2",
-    "parties": [
-        {
-            "id": 2,
-            "name": "partai 2"
-        }
-    ]
+  "message": "updated success",
+  "data": {
+      "id": 2,
+      "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
+      "name": "updated name baru",
+      "visi": "visi 2",
+      "parties": [
+          {
+              "id": 2,
+              "name": "partai 2"
+          }
+      ]
+  }
 }
 ```
 
@@ -170,15 +176,18 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 
 ```json
 {
-    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
-    "name": "updated name baru",
-    "visi": "visi 2",
-    "parties": [
-        {
-            "id": 2,
-            "name": "partai 2"
-        }
-    ]
+  "message": "deleted success",
+  "data": {
+      "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
+      "name": "updated name baru",
+      "visi": "visi 2",
+      "parties": [
+          {
+              "id": 2,
+              "name": "partai 2"
+          }
+      ]
+  }
 }
 ```
 

@@ -21,18 +21,21 @@ export class PaslonsController {
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  create(@Body() body: CreatePaslonDto, @UploadedFile() image: Express.Multer.File) {
-    return this.paslonService.create(body, image);
+  async create(@Body() body: CreatePaslonDto, @UploadedFile() image: Express.Multer.File) {
+    const data = await this.paslonService.create(body, image)
+    return {message: "created success", data};
   }
 
   @Patch('/:id')
-  update(@Param('id') id: string, @Body() body: UpdatePaslonDto, @UploadedFile() image: Express.Multer.File) {
-    return this.paslonService.update(id, body, image)
+  async update(@Param('id') id: string, @Body() body: UpdatePaslonDto, @UploadedFile() image: Express.Multer.File) {
+    const data = await this.paslonService.update(id, body, image)
+    return {message: "updated success", data};
   }
 
   @Delete('/:id')
-  delete(@Param('id') id: string) {
-    return this.paslonService.delete(id)
+  async delete(@Param('id') id: string) {
+    const data = await this.paslonService.delete(id)
+    return {message: "deleted success", data};
   }  
 
 }
