@@ -1,11 +1,11 @@
-# Nama Proyek Anda
+# FULLSTACK DEVELOPER NEXT JS + NEST JS
+<!-- 
 
-Deskripsi singkat tentang proyek Anda.
 
 ## Tentang Proyek
 
 Tulis deskripsi lebih detail tentang proyek Anda di sini.
-
+ -->
 ### Teknologi yang Digunakan
 
 - [Nest.js](https://nestjs.com/) (Framework backend)
