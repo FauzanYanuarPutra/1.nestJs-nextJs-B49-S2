@@ -1,8 +1,8 @@
 import { PaslonSchema } from "src/paslons/paslon.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
-@Entity()
+@Entity('voters')
 export class VoterSchema {
   @PrimaryGeneratedColumn()
   id: number
@@ -10,8 +10,7 @@ export class VoterSchema {
   @Column()
   name: string
 
-  @ManyToOne(() => PaslonSchema)
-  @JoinColumn({ name: 'paslon_id' })
+  @ManyToOne(() => PaslonSchema, paslon => paslon.voters)
   paslon: PaslonSchema; 
 }
 

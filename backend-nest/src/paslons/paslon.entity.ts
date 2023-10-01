@@ -1,5 +1,6 @@
 import { PartySchema } from "src/partys/party.entity";
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { VoterSchema } from "src/voters/voter.entity";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('paslons')
 export class PaslonSchema {
@@ -15,9 +16,12 @@ export class PaslonSchema {
   @Column()
   visi: string;
 
-  @ManyToMany(() => PartySchema, party => party) 
-  @JoinTable()
+  @ManyToMany(() => PartySchema, party => party.users) 
+  @JoinTable({ name: 'paslons_parties' })
   parties: PartySchema[];
+
+  @OneToMany(() => VoterSchema, voter => voter.paslon)
+  voters: VoterSchema[]
 }
 
 

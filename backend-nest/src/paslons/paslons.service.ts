@@ -44,7 +44,7 @@ export class PaslonsService {
   }
 
   async find() {
-    return this.paslonsRepository.find({ relations: ['parties'] });
+    return this.paslonsRepository.find({ relations: ['parties', 'voters'] });
   }
 
   async create(body: CreatePaslonDto, image: Express.Multer.File) {
@@ -73,9 +73,16 @@ export class PaslonsService {
     }
 
     if (image) {
-      const public_id = this.takePublicID(paslon.image)
+      let public_id: string
+
+      if (paslon.image && paslon.image.includes('res.cloudinary.com')) {
+        public_id = this.takePublicID(paslon.image)
+      } else {
+        public_id = paslon.image
+      }
+
+      // const public_id = this.takePublicID(paslon.image)
       const result = await this.updateImage(public_id, image)
-      console.log(result)
       paslon.image = result.url
     } 
 

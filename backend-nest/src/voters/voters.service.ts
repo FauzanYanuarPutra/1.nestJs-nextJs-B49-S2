@@ -51,7 +51,6 @@ export class VotersService {
 
     const id = paslon_id
 
-    console.log(name, paslon_id)
     const paslonAdd = await this.paslonService.findOneById(id)
     voter.paslon = paslonAdd
 
