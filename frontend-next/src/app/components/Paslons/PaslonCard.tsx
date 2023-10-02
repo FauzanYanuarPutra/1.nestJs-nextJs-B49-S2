@@ -20,9 +20,9 @@ const PaslonCard = (props: any) => {
       >
         {props.paslon &&
           props.paslon.map((paslon: any, index: number) => (
-            <div key={paslon.id} className='bg-white shadow-xl   rounded-lg overflow-hidden '>
+            <div key={paslon.id} className={`bg-white shadow-xl   rounded-lg overflow-hidden ${paslon.id === props.voter.paslon_id ? "transform scale-105 duration-150  border-2  border-red-600" : ""}  `}>
               {paslon.image && (
-                <div className='relative'>
+                <div className='relative '>
                   <Image
                     src={paslon.image}
                     alt={paslon.name}
@@ -36,19 +36,22 @@ const PaslonCard = (props: any) => {
                   </div>
                 </div>
               )}
-              <div className='px-3 py-4 h-[150px] flex flex-col justify-between'>
+              <div className='px-3 py-4 h-[200px] flex flex-col justify-between'>
                 <div>
                   <h1 className='text-lg font-bold line-clamp-1 break-words'>{paslon.name}</h1>
-                  <p className='text-sm line-clamp-1 break-words'>{paslon.visi}</p>
+                  <p className='text-sm line-clamp-2 break-words'>{paslon.visi}</p>
                 </div>
-                <ul className='list-disc ml-4 mt-3 font-medium'>
-                  {paslon.parties &&
-                    paslon.parties.map((party: any) => (
-                      <li key={party.id} className='text-sm  '>
-                        {party.name}
-                      </li>
-                    ))}
-                </ul>
+                <div>
+                  <h1 className="font-bold">Partai Pengusung : </h1>
+                  <ul className='list-disc ml-4 mt-3 font-medium'>
+                    {paslon.parties &&
+                      paslon.parties.map((party: any) => (
+                        <li key={party.id} className='text-sm  '>
+                          {party.name}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
                 {!paslon.parties.length && (
                   <p className='text-sm text-red-600'>Belum ada partai pengusung !!</p>
                 )}

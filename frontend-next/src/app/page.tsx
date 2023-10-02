@@ -71,15 +71,15 @@ export default function Home() {
           {message}
         </div>
       )}
-      <div className='max-w-[1000px] w-[90%] mx-auto my-10 gap-4'>
-        <div>
-          <PaslonCard loading={loading} paslon={paslon} />
-          <div className='mt-10 flex flex-col md:flex-row justify-between gap-6 md:gap-4 '>
+      <div className='max-w-[1000px] w-[90%] mx-auto my-10 gap-4 mb-20'>
+        <div className='flex flex-col gap-10'>
+          <div className='flex flex-col md:flex-row justify-between gap-6 md:gap-4 '>
             <TotalVoter loading={loading} paslon={paslon} />
             <div className='md:w-3/5 p-4 rounded-lg bg-white shadow-xl flex flex-col gap-2'>
               <FormVoter voter={voter} onSubmit={submitVoter} paslon={paslon} loading={loading} setVoter={setVoter} />
             </div>
           </div>
+          <PaslonCard loading={loading} paslon={paslon} voter={voter} />
         </div>
       </div>
     </>
