@@ -51,6 +51,7 @@ export class PaslonsService {
     const paslon = this.paslonsRepository.create({ ...body, parties: [] });
 
     if (image) {
+      console.log(image)
       const result = await this.uploadImageToCloudinary(image)
       paslon.image = result.url
     } 
@@ -92,13 +93,17 @@ export class PaslonsService {
 
   async delete(id: string) {
     const paslon = await this.findOneById(id);
-    paslon.parties = await this.addOrRemoveParties(paslon.id, []);
-    const public_id = this.takePublicID(paslon.image)
-    await this.cloudinary.deleteImage(public_id)
+    // paslon.parties = await this.addOrRemoveParties(paslon.id, []);
+
+    if (paslon.image && paslon.image.includes('res.cloudinary.com')) {
+      const public_id = this.takePublicID(paslon.image)
+      await this.cloudinary.deleteImage(public_id)
+    } 
+
     return await this.paslonsRepository.remove(paslon);
   }
 
-  private async addOrRemoveParties(paslonId: string | number, partyIds: number[]) {
+  private async addOrRemoveParties(paslonId: string | number, partyIds: (number | string)[]) {
     const paslon = await this.findOneById(paslonId);
   
     const partiesToAdd = partyIds.filter((partyId) =>
@@ -111,7 +116,7 @@ export class PaslonsService {
   
     const partiesToAddEntities = await Promise.all(
       partiesToAdd.map((partyId) =>
-        this.partyRepository.findOne({ where: { id: partyId } })
+        this.partyRepository.findOne({ where: { id: Number(partyId) } })
       )
     );
   

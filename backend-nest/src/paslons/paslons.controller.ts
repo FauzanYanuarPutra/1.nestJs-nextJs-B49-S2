@@ -24,7 +24,8 @@ export class PaslonsController {
   async create(@Body() body: CreatePaslonDto, @UploadedFile() image: Express.Multer.File) {
     const data = await this.paslonService.create(body, image)
     return {message: "created success", data};
-  }
+}
+  
 
   @Patch('/:id')
   @UseInterceptors(FileInterceptor('image'))
@@ -39,6 +40,8 @@ export class PaslonsController {
     const data = await this.paslonService.delete(id)
     return {message: "deleted success", data};
   }  
+
+  
 
 }
 

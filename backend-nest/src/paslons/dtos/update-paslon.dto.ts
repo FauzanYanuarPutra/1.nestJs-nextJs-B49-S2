@@ -1,4 +1,4 @@
-import { IsArray, IsInt, IsOptional, IsString } from "class-validator";
+import { IsArray, IsOptional, IsString } from "class-validator";
 
 export class UpdatePaslonDto {
   @IsString()
@@ -14,7 +14,6 @@ export class UpdatePaslonDto {
   visi: string;
 
   @IsArray()
-  @IsInt({ each: true })
   @IsOptional()
-  parties?: number[];
+  parties?: (string | number)[];
 }

@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Blob, File } from "buffer";
 
 interface Party {
   id: number;
@@ -9,7 +10,7 @@ interface Party {
 
 interface PaslonData {
   name: string;
-  image: string;
+  image: any | null;
   visi: string;
   parties: number[];
 }
@@ -18,14 +19,19 @@ export default function Paslon() {
   const [partys, setPartys] = useState<Party[]>([]);
   const [paslon, setPaslon] = useState<PaslonData>({
     name: "",
-    image: "",
+    image: null,
     visi: "",
     parties: [],
   });
 
-  const onForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const onForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.post("http://localhost:7000/paslons", paslon);
+    console.log(paslon);
+    await axios.post("http://localhost:7000/paslons", paslon, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    });
   };
 
   useEffect(() => {
@@ -37,11 +43,19 @@ export default function Paslon() {
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, partyId: number) => {
     const isChecked = e.target.checked;
     if (isChecked) {
-      setPaslon({ ...paslon, parties: [...paslon.parties, partyId] });
+      setPaslon({ ...paslon, parties: [...paslon.parties, Number(partyId)] });
     } else {
-      setPaslon({ ...paslon, parties: paslon.parties.filter((id) => id !== partyId) });
+      setPaslon({ ...paslon, parties: paslon.parties.filter((id) => id !== Number(partyId)) });
     }
   };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPaslon({ ...paslon, image: file });
+    }
+  };
+  
 
   return (
     <>
@@ -54,12 +68,12 @@ export default function Paslon() {
               <input type="text" id="name" onChange={(e) => setPaslon({ ...paslon, name: e.target.value })} />
             </div>
             <div  className="flex flex-col">
-              <label htmlFor="image" className="mb-1">Image</label>
-              <input type="text" id="image" onChange={(e) => setPaslon({ ...paslon, image: e.target.value })} />
-            </div>
-            <div  className="flex flex-col">
               <label htmlFor="visi" className="mb-1">Visi</label>
               <input type="text" id="visi" onChange={(e) => setPaslon({ ...paslon, visi: e.target.value })} />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="image" className="mb-1">Image</label>
+              <input type="file" id="image" onChange={handleImageChange} />
             </div>
             <div className="flex gap-4 my-4">
               {partys &&
@@ -70,7 +84,7 @@ export default function Paslon() {
                         type="checkbox"
                         value={party.id}
                         checked={paslon.parties.includes(party.id)}
-                        onChange={(e) => handleCheckboxChange(e, party.id)}
+                        onChange={(e) => handleCheckboxChange(e, Number(party.id))}
                       />
                       {party.name}
                     </label>
